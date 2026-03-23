@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Perfil</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="navbar">
+        <span>🌤️ App del Clima</span>
+        <div>
+            <span id="nombre-usuario"></span>
+            <button class="btn-perfil" onclick="window.location.href='home.html'">Volver</button>
+            <button class="btn-logout" onclick="logout()">Cerrar Sesión</button>
+        </div>
+    </div>
+
+    <div class="contenedor">
+        <div class="perfil-seccion">
+            <h2>👤 Editar Perfil</h2>
+            <div class="perfil-form">
+                <input type="text" id="perfil-nombre" placeholder="Nuevo nombre">
+                <input type="password" id="perfil-password" placeholder="Nueva contraseña (opcional)">
+                <button class="btn-guardar" onclick="editarPerfil()">Guardar cambios</button>
+                <p class="mensaje-perfil" id="msg-perfil"></p>
+            </div>
+        </div>
+    </div>
+
+    <script src="perfil.js"></script>
+</body>
+</html>

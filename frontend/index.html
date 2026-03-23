@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>App del Clima - Login</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="contenedor-auth">
+        <h1>🌤️ App del Clima</h1>
+
+        <div class="tabs">
+            <button class="tab activo" onclick="mostrarTab('login')">Iniciar Sesión</button>
+            <button class="tab" onclick="mostrarTab('registro')">Registrarse</button>
+        </div>
+
+        <!-- Login -->
+        <div id="tab-login">
+            <input type="email" id="login-email" placeholder="Correo electrónico">
+            <input type="password" id="login-password" placeholder="Contraseña">
+            <button class="btn-primary" onclick="login()">Iniciar Sesión</button>
+            <p class="mensaje-auth" id="msg-login"></p>
+        </div>
+
+        <div id="tab-registro" style="display:none">
+
+            <!-- Barra de progreso -->
+            <div class="wizard-progress">
+                <div class="paso activo" id="indicador-1" onclick="irAPaso(1)">1</div>
+                <div class="linea"></div>
+                <div class="paso" id="indicador-2" onclick="irAPaso(2)">2</div>
+                <div class="linea"></div>
+                <div class="paso" id="indicador-3" onclick="irAPaso(3)">3</div>
+            </div>
+        
+            <!-- Paso 1 -->
+            <div class="wizard-paso" id="paso-1">
+                <p class="wizard-titulo">¿Cómo te llamas?</p>
+                <input type="text" id="reg-nombre" placeholder="Nombre completo">
+                <button class="btn-primary" onclick="siguientePaso(1)">Siguiente →</button>
+            </div>
+        
+            <!-- Paso 2 -->
+            <div class="wizard-paso" id="paso-2" style="display:none">
+                <p class="wizard-titulo">¿Cuál es tu correo?</p>
+                <input type="email" id="reg-email" placeholder="Correo electrónico">
+                <button class="btn-secondary" onclick="anteriorPaso(2)">← Anterior</button>
+                <button class="btn-primary" onclick="siguientePaso(2)">Siguiente →</button>
+            </div>
+        
+            <!-- Paso 3 -->
+            <div class="wizard-paso" id="paso-3" style="display:none">
+                <p class="wizard-titulo">Crea tu contraseña</p>
+                <input type="password" id="reg-password" placeholder="Contraseña">
+                <input type="password" id="reg-password2" placeholder="Confirmar contraseña">
+                <button class="btn-secondary" onclick="anteriorPaso(3)">← Anterior</button>
+                <button class="btn-primary" onclick="registro()">Registrarse ✓</button>
+            </div>
+        
+            <p class="mensaje-auth" id="msg-registro"></p>
+        </div>
+    </div>
+
+    <script src="auth.js"></script>
+</body>
+</html>
