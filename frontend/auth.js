@@ -41,6 +41,7 @@ async function login() {
 
 async function registro() {
     const nombre = document.getElementById("reg-nombre").value;
+    const curp = document.getElementById("reg-curp").value.trim().toUpperCase();
     const email = document.getElementById("reg-email").value;
     const password = document.getElementById("reg-password").value;
     const password2 = document.getElementById("reg-password2").value;
@@ -62,7 +63,7 @@ async function registro() {
         const res = await fetch(`${API}/auth/registro`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ nombre, email, password })
+            body: JSON.stringify({ nombre, curp, email, password })
         });
 
         const datos = await res.json();
@@ -87,9 +88,24 @@ function siguientePaso(paso) {
 
     if (paso === 1) {
         const nombre = document.getElementById("reg-nombre").value.trim();
+        const curp = document.getElementById("reg-curp").value.trim().toUpperCase();
+        const curpRegex = /^[A-Z]{4}[0-9]{6}[A-Z]{6}[0-9A-Z]{2}$/;
+    
         if (!nombre) {
             msg.style.color = "red";
             msg.textContent = "Por favor escribe tu nombre.";
+            return;
+        }
+    
+        if (!curp) {
+            msg.style.color = "red";
+            msg.textContent = "Por favor escribe tu CURP.";
+            return;
+        }
+    
+        if (!curpRegex.test(curp)) {
+            msg.style.color = "red";
+            msg.textContent = "CURP inválida. Debe tener 18 caracteres con el formato correcto.";
             return;
         }
     }

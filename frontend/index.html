@@ -36,11 +36,12 @@
             </div>
         
             <!-- Paso 1 -->
-            <div class="wizard-paso" id="paso-1">
-                <p class="wizard-titulo">¿Cómo te llamas?</p>
-                <input type="text" id="reg-nombre" placeholder="Nombre completo">
-                <button class="btn-primary" onclick="siguientePaso(1)">Siguiente →</button>
-            </div>
+<div class="wizard-paso" id="paso-1">
+    <p class="wizard-titulo">¿Cómo te llamas?</p>
+    <input type="text" id="reg-nombre" placeholder="Nombre completo">
+    <input type="text" id="reg-curp" placeholder="CURP" maxlength="18" style="text-transform:uppercase">
+    <button class="btn-primary" onclick="siguientePaso(1)">Siguiente →</button>
+</div>
         
             <!-- Paso 2 -->
             <div class="wizard-paso" id="paso-2" style="display:none">

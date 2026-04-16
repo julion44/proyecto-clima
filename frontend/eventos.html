@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eventos</title>
+    <link rel="stylesheet" href="style.css"> 
+</head>
+<body>
+
+    <div class="navbar">
+        <span>🌤️ App del Clima</span>
+        <div>
+            <span id="nombre-usuario"></span>
+            <button class="btn-perfil" onclick="window.location.href='home.html'">Volver</button>
+            <button class="btn-logout" onclick="logout()">Cerrar Sesión</button>
+        </div>
+    </div>
+
+    <div class="contenedor">
+
+        <div class="perfil-seccion">
+            <h2>🎵 Registrar Evento</h2>
+
+            <!-- Barra de progreso del wizard -->
+            <div class="wizard-progress">
+                <div class="paso activo" id="indicador-evento-1" onclick="irAPasoEvento(1)">1</div>
+                <div class="linea"></div>
+                <div class="paso" id="indicador-evento-2" onclick="irAPasoEvento(2)">2</div>
+                <div class="linea"></div>
+                <div class="paso" id="indicador-evento-3" onclick="irAPasoEvento(3)">3</div>
+            </div>
+
+            <!-- Paso 1: Nombre del evento -->
+            <div class="wizard-paso" id="paso-evento-1">
+                <p class="wizard-titulo">¿Cómo se llama el evento?</p>
+                <input type="text" id="evento-nombre" placeholder="Nombre del evento (ej. Concierto de Rock)">
+                <button class="btn-primary" onclick="siguientePasoEvento(1)">Siguiente →</button>
+            </div>
+
+            <!-- Paso 2: Ciudad -->
+            <div class="wizard-paso" id="paso-evento-2" style="display:none">
+                <p class="wizard-titulo">¿En qué ciudad será?</p>
+                <input type="text" id="evento-ciudad" placeholder="Ciudad del evento">
+                <button class="btn-secondary" onclick="anteriorPasoEvento(2)">← Anterior</button>
+                <button class="btn-primary" onclick="siguientePasoEvento(2)">Siguiente →</button>
+            </div>
+
+            <!-- Paso 3: Fecha -->
+            <div class="wizard-paso" id="paso-evento-3" style="display:none">
+                <p class="wizard-titulo">¿Qué fecha es el evento?</p>
+                <input type="date" id="evento-fecha">
+                <button class="btn-secondary" onclick="anteriorPasoEvento(3)">← Anterior</button>
+                <button class="btn-primary" onclick="registrarEvento()">Registrar Evento ✓</button>
+            </div>
+
+            <p class="mensaje-perfil" id="msg-evento"></p>
+        </div>
+
+        <div class="historial-seccion" style="margin-top: 30px;">
+            <h2>📅 Mis Eventos</h2>
+            <table id="tabla-eventos">
+                <thead>
+                    <tr>
+                        <th>Evento</th>
+                        <th>Ciudad</th>
+                        <th>Fecha</th>
+                        <th>Temperatura</th>
+                        <th>Clima</th>
+                        <th>Acción</th>
+                    </tr>
+                </thead>
+                <tbody id="cuerpo-eventos"></tbody>
+            </table>
+        </div>
+
+    </div>
+
+    <script src="eventos.js"></script>
+</body>
+</html>

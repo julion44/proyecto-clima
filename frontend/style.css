@@ -362,3 +362,18 @@ tr:hover {
 .paso {
     cursor: pointer;
 }
+
+.btn-eventos {
+    padding: 8px 15px;
+    background: #6c5ce7;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-left: 15px;
+    font-weight: bold;
+}
+
+.btn-eventos:hover {
+    background: #5b4bc4;
+}

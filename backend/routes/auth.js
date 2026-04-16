@@ -11,14 +11,15 @@ router.post("/registro", async (req, res) => {
     try {
         const hash = await bcrypt.hash(password, 10);
         const request = new sql.Request();
+        const { nombre, curp, email, password } = req.body;
         request.input("nombre", sql.NVarChar, nombre);
+        request.input("curp", sql.NVarChar, curp);
         request.input("email", sql.NVarChar, email);
         request.input("password", sql.NVarChar, hash);
-
+        
         await request.query(
-            "INSERT INTO usuarios (nombre, email, password) VALUES (@nombre, @email, @password)"
+            "INSERT INTO usuarios (nombre, curp, email, password) VALUES (@nombre, @curp, @email, @password)"
         );
-
         res.json({ mensaje: "Usuario registrado correctamente" });
     } catch (error) {
         res.status(500).json({ error: "El email ya está registrado o hubo un error" });
