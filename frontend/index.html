@@ -24,9 +24,9 @@
             <p class="mensaje-auth" id="msg-login"></p>
         </div>
 
+        <!-- Registro Wizard -->
         <div id="tab-registro" style="display:none">
 
-            <!-- Barra de progreso -->
             <div class="wizard-progress">
                 <div class="paso activo" id="indicador-1" onclick="irAPaso(1)">1</div>
                 <div class="linea"></div>
@@ -34,32 +34,54 @@
                 <div class="linea"></div>
                 <div class="paso" id="indicador-3" onclick="irAPaso(3)">3</div>
             </div>
-        
-            <!-- Paso 1 -->
-<div class="wizard-paso" id="paso-1">
-    <p class="wizard-titulo">¿Cómo te llamas?</p>
-    <input type="text" id="reg-nombre" placeholder="Nombre completo">
-    <input type="text" id="reg-curp" placeholder="CURP" maxlength="18" style="text-transform:uppercase">
-    <button class="btn-primary" onclick="siguientePaso(1)">Siguiente →</button>
-</div>
-        
-            <!-- Paso 2 -->
+
+            <!-- Paso 1: Datos personales -->
+            <div class="wizard-paso" id="paso-1">
+                <p class="wizard-titulo">Datos personales</p>
+                <input type="text" id="reg-nombre" placeholder="Nombre(s)">
+                <input type="text" id="reg-apellido" placeholder="Apellido(s)">
+                <input type="date" id="reg-fecha-nac">
+                <input type="number" id="reg-edad" placeholder="Edad" min="1" max="120">
+                <select id="reg-genero">
+                    <option value="">Selecciona género</option>
+                    <option value="Masculino">Masculino</option>
+                    <option value="Femenino">Femenino</option>
+                    <option value="Otro">Otro</option>
+                    <option value="Prefiero no decir">Prefiero no decir</option>
+                </select>
+                <input type="text" id="reg-curp" placeholder="CURP" maxlength="18" style="text-transform:uppercase">
+                <button class="btn-primary" onclick="siguientePaso(1)">Siguiente →</button>
+            </div>
+
+            <!-- Paso 2: Datos de contacto -->
             <div class="wizard-paso" id="paso-2" style="display:none">
-                <p class="wizard-titulo">¿Cuál es tu correo?</p>
+                <p class="wizard-titulo">Datos de contacto</p>
                 <input type="email" id="reg-email" placeholder="Correo electrónico">
+                <input type="password" id="reg-password" placeholder="Contraseña">
+                <input type="password" id="reg-password2" placeholder="Confirmar contraseña">
+                <input type="tel" id="reg-telefono" placeholder="Número telefónico (10 dígitos)" maxlength="10">
+                <input type="tel" id="reg-telefono-alt" placeholder="Teléfono alternativo (opcional)" maxlength="10">
                 <button class="btn-secondary" onclick="anteriorPaso(2)">← Anterior</button>
                 <button class="btn-primary" onclick="siguientePaso(2)">Siguiente →</button>
             </div>
-        
-            <!-- Paso 3 -->
+
+            <!-- Paso 3: Dirección -->
             <div class="wizard-paso" id="paso-3" style="display:none">
-                <p class="wizard-titulo">Crea tu contraseña</p>
-                <input type="password" id="reg-password" placeholder="Contraseña">
-                <input type="password" id="reg-password2" placeholder="Confirmar contraseña">
+                <p class="wizard-titulo">Dirección</p>
+                <input type="text" id="reg-calle" placeholder="Calle">
+                <div style="display:flex; gap:10px;">
+                    <input type="text" id="reg-num-ext" placeholder="Núm. exterior">
+                    <input type="text" id="reg-num-int" placeholder="Núm. interior (opcional)">
+                </div>
+                <input type="text" id="reg-colonia" placeholder="Colonia">
+                <input type="text" id="reg-ciudad" placeholder="Ciudad">
+                <input type="text" id="reg-estado" placeholder="Estado">
+                <input type="text" id="reg-pais" placeholder="País">
+                <input type="text" id="reg-cp" placeholder="Código postal (5 dígitos)" maxlength="5">
                 <button class="btn-secondary" onclick="anteriorPaso(3)">← Anterior</button>
                 <button class="btn-primary" onclick="registro()">Registrarse ✓</button>
             </div>
-        
+
             <p class="mensaje-auth" id="msg-registro"></p>
         </div>
     </div>
