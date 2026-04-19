@@ -22,34 +22,34 @@
         <div class="perfil-seccion">
             <h2>🎵 Registrar Evento</h2>
 
-            <!-- Barra de progreso del wizard -->
             <div class="wizard-progress">
-                <div class="paso activo" id="indicador-evento-1" onclick="irAPasoEvento(1)">1</div>
+                <div class="paso activo" id="evento-ind-1">1</div>
                 <div class="linea"></div>
-                <div class="paso" id="indicador-evento-2" onclick="irAPasoEvento(2)">2</div>
+                <div class="paso" id="evento-ind-2">2</div>
                 <div class="linea"></div>
-                <div class="paso" id="indicador-evento-3" onclick="irAPasoEvento(3)">3</div>
+                <div class="paso" id="evento-ind-3">3</div>
             </div>
 
             <!-- Paso 1: Nombre del evento -->
-            <div class="wizard-paso" id="paso-evento-1">
+            <div class="wizard-paso" id="evento-paso-1">
                 <p class="wizard-titulo">¿Cómo se llama el evento?</p>
                 <input type="text" id="evento-nombre" placeholder="Nombre del evento (ej. Concierto de Rock)">
                 <button class="btn-primary" onclick="siguientePasoEvento(1)">Siguiente →</button>
             </div>
 
             <!-- Paso 2: Ciudad -->
-            <div class="wizard-paso" id="paso-evento-2" style="display:none">
+            <div class="wizard-paso" id="evento-paso-2" style="display:none">
                 <p class="wizard-titulo">¿En qué ciudad será?</p>
                 <input type="text" id="evento-ciudad" placeholder="Ciudad del evento">
+                <input type="date" id="evento-fecha">
                 <button class="btn-secondary" onclick="anteriorPasoEvento(2)">← Anterior</button>
                 <button class="btn-primary" onclick="siguientePasoEvento(2)">Siguiente →</button>
             </div>
 
-            <!-- Paso 3: Fecha -->
-            <div class="wizard-paso" id="paso-evento-3" style="display:none">
-                <p class="wizard-titulo">¿Qué fecha es el evento?</p>
-                <input type="date" id="evento-fecha">
+            <!-- Paso 3: Confirmación -->
+            <div class="wizard-paso" id="evento-paso-3" style="display:none">
+                <p class="wizard-titulo">Confirma tu evento</p>
+                <p id="resumen-evento" style="color:#2d3436; font-size:15px;"></p>
                 <button class="btn-secondary" onclick="anteriorPasoEvento(3)">← Anterior</button>
                 <button class="btn-primary" onclick="registrarEvento()">Registrar Evento ✓</button>
             </div>

@@ -377,3 +377,24 @@ tr:hover {
 .btn-eventos:hover {
     background: #5b4bc4;
 }
+
+/* WIZARD EVENTOS */
+.perfil-seccion .wizard-paso input {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    font-size: 15px;
+    outline: none;
+    margin-bottom: 5px;
+}
+
+.perfil-seccion .wizard-paso input:focus {
+    border-color: #0984e3;
+}
+
+.perfil-seccion .wizard-paso {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
