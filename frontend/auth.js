@@ -279,3 +279,33 @@ async function registro() {
         document.getElementById("msg-registro").textContent = "Error al conectar con el servidor.";
     }
 }
+
+async function buscarCodigoPostal() {
+    const cp = document.getElementById("reg-cp").value.trim();
+    const msg = document.getElementById("msg-registro");
+
+    if (cp.length !== 5) return;
+
+    try {
+        const res = await fetch(`https://api.zippopotam.us/mx/${cp}`);
+        
+        if (!res.ok) {
+            msg.style.color = "red";
+            msg.textContent = "Código postal no encontrado.";
+            return;
+        }
+
+        const datos = await res.json();
+        const lugar = datos.places[0];
+
+        document.getElementById("reg-ciudad").value = lugar["place name"];
+        document.getElementById("reg-estado").value = lugar["state"];
+        document.getElementById("reg-colonia").value = "";
+        msg.style.color = "green";
+        msg.textContent = "Ciudad y estado llenados automáticamente. Verifica la colonia.";
+
+    } catch (error) {
+        msg.style.color = "red";
+        msg.textContent = "Error al buscar el código postal.";
+    }
+}

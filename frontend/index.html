@@ -77,7 +77,7 @@
                 <input type="text" id="reg-ciudad" placeholder="Ciudad">
                 <input type="text" id="reg-estado" placeholder="Estado">
                 <input type="text" id="reg-pais" placeholder="País">
-                <input type="text" id="reg-cp" placeholder="Código postal (5 dígitos)" maxlength="5">
+                <input type="text" id="reg-cp" placeholder="Código postal (5 dígitos)" maxlength="5" oninput="buscarCodigoPostal()">
                 <button class="btn-secondary" onclick="anteriorPaso(3)">← Anterior</button>
                 <button class="btn-primary" onclick="registro()">Registrarse ✓</button>
             </div>
