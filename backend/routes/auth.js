@@ -6,8 +6,8 @@ const { sql } = require("../db");
 
 router.post("/registro", async (req, res) => {
     const { nombre, apellido, fecha_nacimiento, edad, genero, curp, email, password,
-            telefono, telefono_alt, calle, num_exterior, num_interior, colonia,
-            ciudad, estado, pais, codigo_postal } = req.body;
+        telefono, telefono_alt, calle, num_exterior, num_interior, colonia,
+        ciudad, estado, pais, codigo_postal, rol } = req.body;
 
     try {
         const hash = await bcrypt.hash(password, 10);
@@ -18,6 +18,7 @@ router.post("/registro", async (req, res) => {
         request.input("fecha_nacimiento", sql.Date, fecha_nacimiento);
         request.input("edad", sql.Int, edad);
         request.input("genero", sql.NVarChar, genero);
+        request.input("rol", sql.NVarChar, rol || "normal");
         request.input("curp", sql.NVarChar, curp);
         request.input("email", sql.NVarChar, email);
         request.input("password", sql.NVarChar, hash);
@@ -33,9 +34,9 @@ router.post("/registro", async (req, res) => {
         request.input("codigo_postal", sql.NVarChar, codigo_postal);
 
         await request.query(`
-            INSERT INTO usuarios (nombre, apellido, fecha_nacimiento, edad, genero, curp, email, password,
+            INSERT INTO usuarios (nombre, apellido, fecha_nacimiento, edad, genero, rol, curp, email, password,
                 telefono, telefono_alt, calle, num_exterior, num_interior, colonia, ciudad, estado, pais, codigo_postal)
-            VALUES (@nombre, @apellido, @fecha_nacimiento, @edad, @genero, @curp, @email, @password,
+            VALUES (@nombre, @apellido, @fecha_nacimiento, @edad, @genero, @rol, @curp, @email, @password,
                 @telefono, @telefono_alt, @calle, @num_exterior, @num_interior, @colonia, @ciudad, @estado, @pais, @codigo_postal)
         `);
 
@@ -74,7 +75,7 @@ router.post("/login", async (req, res) => {
             { expiresIn: "24h" }
         );
 
-        res.json({ token, nombre: usuario.nombre, id: usuario.id });
+        res.json({ token, nombre: usuario.nombre, id: usuario.id, rol: usuario.rol });
     }  catch (error) {
         console.error("Error login:", error.message);
         res.status(500).json({ error: error.message });

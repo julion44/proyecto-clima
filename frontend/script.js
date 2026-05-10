@@ -9,6 +9,12 @@ if (!token) {
     window.location.href = "index.html";
 }
 
+// Mostrar botón de eventos solo si es organizador
+const rol = localStorage.getItem("rol");
+if (rol !== "organizador") {
+    document.getElementById("btn-eventos").style.display = "none";
+}
+
 document.getElementById("nombre-usuario").textContent = `👤 ${nombre}`;
 
 // Buscar clima

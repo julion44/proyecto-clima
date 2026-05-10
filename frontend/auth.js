@@ -30,6 +30,7 @@ async function login() {
         localStorage.setItem("token", datos.token);
         localStorage.setItem("nombre", datos.nombre);
         localStorage.setItem("usuario_id", datos.id);
+        localStorage.setItem("rol", datos.rol);
         window.location.href = "home.html";
 
     } catch (error) {
@@ -241,6 +242,7 @@ async function registro() {
         fecha_nacimiento: document.getElementById("reg-fecha-nac").value,
         edad: document.getElementById("reg-edad").value,
         genero: document.getElementById("reg-genero").value,
+        rol: document.getElementById("reg-rol").value,
         curp: document.getElementById("reg-curp").value.trim().toUpperCase(),
         email: document.getElementById("reg-email").value.trim(),
         password: document.getElementById("reg-password").value,
@@ -287,25 +289,42 @@ async function buscarCodigoPostal() {
     if (cp.length !== 5) return;
 
     try {
-        const res = await fetch(`https://api.zippopotam.us/mx/${cp}`);
-        
+        const res = await fetch(`https://sepomex.icalialabs.com/api/v1/zip_codes?zip_code=${cp}`);
+
         if (!res.ok) {
+            throw new Error("No encontrado");
+        }
+
+        const datos = await res.json();
+
+        if (!datos.zip_codes || datos.zip_codes.length === 0) {
             msg.style.color = "red";
             msg.textContent = "Código postal no encontrado.";
             return;
         }
 
-        const datos = await res.json();
-        const lugar = datos.places[0];
+        const lugar = datos.zip_codes[0];
+        document.getElementById("reg-estado").value = lugar.d_estado;
+        document.getElementById("reg-ciudad").value = lugar.d_mnpio;
+        document.getElementById("reg-colonia").value = lugar.d_asenta;
 
-        document.getElementById("reg-ciudad").value = lugar["place name"];
-        document.getElementById("reg-estado").value = lugar["state"];
-        document.getElementById("reg-colonia").value = "";
         msg.style.color = "green";
-        msg.textContent = "Ciudad y estado llenados automáticamente. Verifica la colonia.";
+        msg.textContent = "Datos llenados automáticamente.";
 
     } catch (error) {
-        msg.style.color = "red";
-        msg.textContent = "Error al buscar el código postal.";
+        // Si falla sepomex, usar zippopotam como respaldo
+        try {
+            const res2 = await fetch(`https://api.zippopotam.us/mx/${cp}`);
+            const datos2 = await res2.json();
+            const lugar2 = datos2.places[0];
+            document.getElementById("reg-estado").value = lugar2["state"];
+            document.getElementById("reg-ciudad").value = lugar2["place name"].split(",")[0].trim();
+            document.getElementById("reg-colonia").value = "";
+            msg.style.color = "orange";
+            msg.textContent = "Ciudad y estado llenados. Escribe tu colonia manualmente.";
+        } catch {
+            msg.style.color = "red";
+            msg.textContent = "Error al buscar el código postal.";
+        }
     }
 }

@@ -68,4 +68,45 @@ router.delete("/:id", async (req, res) => {
     }
 });
 
+// Actualizar pronóstico de eventos futuros
+router.put("/actualizar/:usuario_id", async (req, res) => {
+    const { usuario_id } = req.params;
+    try {
+        const request = new sql.Request();
+        request.input("usuario_id", sql.Int, usuario_id);
+        const resultado = await request.query(
+            "SELECT * FROM eventos WHERE usuario_id = @usuario_id AND fecha >= CAST(GETDATE() AS DATE)"
+        );
+
+        const eventos = resultado.recordset;
+
+        for (const evento of eventos) {
+            const url = `https://api.openweathermap.org/data/2.5/forecast?q=${evento.ciudad}&appid=${API_KEY}&units=metric&lang=es`;
+            const respuesta = await fetch(url);
+            const datos = await respuesta.json();
+
+            if (datos.cod === "404") continue;
+
+            const fechaStr = new Date(evento.fecha).toISOString().split("T")[0];
+            const pronostico = datos.list.find(item => item.dt_txt.startsWith(fechaStr));
+
+            if (pronostico) {
+                console.log(`✅ Actualizando ${evento.nombre} en ${evento.ciudad}: ${pronostico.main.temp}°C - ${pronostico.weather[0].description}`);
+                const req2 = new sql.Request();
+                req2.input("id", sql.Int, evento.id);
+                req2.input("temperatura", sql.Float, pronostico.main.temp);
+                req2.input("descripcion", sql.NVarChar, pronostico.weather[0].description);
+                await req2.query(
+                    "UPDATE eventos SET temperatura = @temperatura, descripcion = @descripcion WHERE id = @id"
+                );
+            }
+        }
+
+        res.json({ mensaje: "Pronósticos actualizados" });
+    } catch (error) {
+        console.error("Error actualizando pronósticos:", error.message);
+        res.status(500).json({ error: error.message });
+    }
+});
+
 module.exports = router;

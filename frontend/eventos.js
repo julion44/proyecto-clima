@@ -177,4 +177,16 @@ function logout() {
     window.location.href = "index.html";
 }
 
-cargarEventos();
+actualizarPronosticos();
+
+async function actualizarPronosticos() {
+    try {
+        await fetch(`${API}/eventos/actualizar/${usuario_id}`, {
+            method: "PUT",
+            headers: { "Authorization": `Bearer ${token}` }
+        });
+        cargarEventos();
+    } catch (error) {
+        cargarEventos();
+    }
+}
