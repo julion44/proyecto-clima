@@ -398,3 +398,18 @@ tr:hover {
     flex-direction: column;
     gap: 12px;
 }
+
+.btn-reservas {
+    padding: 8px 15px;
+    background: #e17055;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-left: 15px;
+    font-weight: bold;
+}
+
+.btn-reservas:hover {
+    background: #c0392b;
+}

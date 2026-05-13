@@ -13,11 +13,13 @@ const authRoutes = require("./routes/auth");
 const climaRoutes = require("./routes/clima");
 const historialRoutes = require("./routes/historial");
 const eventosRoutes = require("./routes/eventos");
+const reservasRoutes = require("./routes/reservas");
 
 app.use("/api/auth", authRoutes);
 app.use("/api/clima", climaRoutes);
 app.use("/api/historial", historialRoutes);
 app.use("/api/eventos", eventosRoutes);
+app.use("/api/reservas", reservasRoutes);
 
 
 const PORT = process.env.PORT || 3000;
